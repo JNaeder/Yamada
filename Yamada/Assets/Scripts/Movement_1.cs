@@ -14,6 +14,7 @@ public class Movement_1 : MonoBehaviour
     public float fallMult = 1;
     public float jumpDamp = 1;
     public bool isGrounded = false;
+    public bool isWalking = false;
 
     public Transform groundCheck;
     public LayerMask NonPlayerLayer;
@@ -38,7 +39,7 @@ public class Movement_1 : MonoBehaviour
     void Movement() {
         float h = Input.GetAxis("Horizontal");
         //float v = Input.GetAxis("Vertical");
-        bool isWalking = Mathf.Abs(h) > 0.1f;
+        isWalking = Mathf.Abs(h) > 0.1f;
         anim.SetBool("isWalking", isWalking);
 ;
 
@@ -56,7 +57,7 @@ public class Movement_1 : MonoBehaviour
 
 
     void Jumping() {
-        if (Input.GetButtonDown("Jump")) {
+        if (Input.GetButtonDown("Jump") && isGrounded) {
             rB.AddForce(new Vector2(0, 100) * jumpForce);
         }
 
@@ -73,7 +74,7 @@ public class Movement_1 : MonoBehaviour
     void CheckGround() {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.5f, NonPlayerLayer);
         anim.SetBool("isGrounded", isGrounded);
-        Debug.Log(isGrounded);
+        //Debug.Log(isGrounded);
 
     }
 }
