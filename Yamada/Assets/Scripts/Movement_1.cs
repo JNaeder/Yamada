@@ -117,8 +117,10 @@ public class Movement_1 : MonoBehaviour
                     pSShape.radius = distBetweenHandAndPlant / 2;
                     Vector3 middlePoint = new Vector3((healingHandPos.position.x + healableObject.transform.position.x) / 2, (healingHandPos.position.y + healableObject.transform.position.y) / 2, 0);
                     pSShape.position = middlePoint;
-                    effectRot = Vector3.Angle(healableObject.transform.position, healingHandPos.position);
-                    Vector3 newRot = new Vector3(0, 0, -effectRot);
+
+                    Vector3 vectorToTarget = healingHandPos.position - healableObject.transform.position;
+                    effectRot = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg;
+                    Vector3 newRot = new Vector3(0, 0, effectRot);
                     pSShape.rotation = newRot;
                 }
             }
