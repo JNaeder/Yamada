@@ -3273,7 +3273,7 @@ SpriteRenderer:
   m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 85637ee8ddf29fa4b8618e4088fafc23, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -3662,6 +3662,11 @@ PrefabInstance:
       propertyPath: m_ExposedReferences.m_References.Array.data[2].second
       value: 
       objectReference: {fileID: 878928170}
+    - target: {fileID: 2317249616957744304, guid: 7fe6f003a50e41f4f8dae2773b4b7711,
+        type: 3}
+      propertyPath: m_FlipX
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7fe6f003a50e41f4f8dae2773b4b7711, type: 3}
 --- !u!1001 &5425064311258827404

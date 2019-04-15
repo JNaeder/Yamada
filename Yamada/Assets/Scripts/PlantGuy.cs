@@ -6,6 +6,7 @@ public class PlantGuy : MonoBehaviour
 {
     public float health = 100;
     public float animSpeed = 1;
+    public bool isHealable = true;
 
 
     Animator anim;
@@ -20,6 +21,11 @@ public class PlantGuy : MonoBehaviour
     {
         anim.SetFloat("health", health);
         anim.speed = animSpeed;
+
+
+        if (health <= 0) {
+            isHealable = false;
+        }
 
     }
 

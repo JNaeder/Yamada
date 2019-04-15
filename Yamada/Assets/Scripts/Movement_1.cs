@@ -100,19 +100,20 @@ public class Movement_1 : MonoBehaviour
             if (Input.GetButton("Fire1"))
             {
                 anim.SetBool("isHealing", true);
-            foreach (ParticleSystem pS in healingPS) {
-                if (healableObject != null)
-                {
-                    pS.enableEmission = true;
-                }
-            }
+
+
+            
 
                 
-            if (healableObject != null)
-            {
+            if (healableObject != null && healableObject.isHealable)
+            { 
+                
+
                 float distBetweenHandAndPlant = Vector3.Distance(healingHandPos.position, healableObject.transform.position);
 
                 foreach(ParticleSystem pS in healingPS) {
+                    pS.enableEmission = true;
+
                     UnityEngine.ParticleSystem.ShapeModule pSShape = pS.shape;
                     pSShape.radius = distBetweenHandAndPlant / 2;
                     Vector3 middlePoint = new Vector3((healingHandPos.position.x + healableObject.transform.position.x) / 2, (healingHandPos.position.y + healableObject.transform.position.y) / 2, 0);
@@ -133,6 +134,8 @@ public class Movement_1 : MonoBehaviour
                 
             }
             }
+
+
             else {
                 anim.SetBool("isHealing", false);
             foreach (ParticleSystem pS in healingPS)
