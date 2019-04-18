@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Movement_1 : MonoBehaviour
 {
@@ -20,8 +21,12 @@ public class Movement_1 : MonoBehaviour
     public bool isHealing = false;
     public float effectRot;
     public int extraJumpNum = 1;
+    public float radLevel = 0;
+    public float maxRadLevel = 500;
+    public Image radLevelImg;
     public PlantGuy healableObject;
     public ParticleSystem[] healingPS;
+    public float recoveringSpeed = 2;
 
     int startExtraJumpNum;
 
@@ -43,7 +48,15 @@ public class Movement_1 : MonoBehaviour
         foreach (ParticleSystem pS in healingPS)
         {
             pS.enableEmission = false;
+
+            pS.transform.parent = null;
+            pS.transform.position = Vector3.zero;
+            
         }
+
+
+
+
     }
 
     // Update is called once per frame
@@ -54,6 +67,7 @@ public class Movement_1 : MonoBehaviour
         Jumping();
         CheckGround();
         Healing();
+        SetRadLevel();
     }
 
 
@@ -97,7 +111,7 @@ public class Movement_1 : MonoBehaviour
 
     void Healing() {
         
-            if (Input.GetButton("Fire1"))
+            if (Input.GetButton("Healing"))
             {
                 anim.SetBool("isHealing", true);
 
@@ -130,8 +144,11 @@ public class Movement_1 : MonoBehaviour
 
             if (inHealableArea)
             {
-                healableObject.health -= Time.deltaTime * 20;
-                
+                if (healableObject.health > 0)
+                {
+                    healableObject.health -= Time.deltaTime * 20;
+                    radLevel += Time.deltaTime * 20;
+                }
             }
             }
 
@@ -178,6 +195,37 @@ public class Movement_1 : MonoBehaviour
         {
             extraJumpNum = startExtraJumpNum;
         }
+    }
+
+
+    void SetRadLevel() {
+
+        float radLevelPerc = radLevel / maxRadLevel;
+        Vector3 radLevelScale = radLevelImg.transform.localScale;
+        radLevelScale.x = radLevelPerc;
+        radLevelImg.transform.localScale = radLevelScale;
+
+
+
+    }
+
+
+    public void Recover(float recoverAmount) {
+        if (radLevel > 0)
+        {
+
+            Debug.Log("Healing Yourself!");
+
+            radLevel -= recoverAmount;
+
+
+
+            if (radLevel < 0)
+            {
+                radLevel = 0;
+            }
+        }
+
     }
 
 
