@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class Movement_1 : MonoBehaviour
 {
     Rigidbody2D rB;
-    SpriteRenderer sP;
     Animator anim;
 
 
@@ -40,14 +39,15 @@ public class Movement_1 : MonoBehaviour
     void Start()
     {
         rB = GetComponent<Rigidbody2D>();
-        sP = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
 
 
         startExtraJumpNum = extraJumpNum;
         foreach (ParticleSystem pS in healingPS)
         {
-            pS.enableEmission = false;
+            //pS.enableEmission = false;
+            ParticleSystem.EmissionModule emis = pS.emission;
+            emis.enabled = false;
 
             pS.transform.parent = null;
             pS.transform.position = Vector3.zero;
@@ -84,14 +84,14 @@ public class Movement_1 : MonoBehaviour
 
             if (h > 0)
             {
-                //sP.flipX = false;
+                
                 Vector3 newScale = transform.localScale;
                 newScale.x = 1;
                 transform.localScale = newScale;
             }
             else if (h < 0)
             {
-                // sP.flipX = true;
+                
                 Vector3 newScale = transform.localScale;
                 newScale.x = -1;
                 transform.localScale = newScale;
@@ -126,7 +126,8 @@ public class Movement_1 : MonoBehaviour
                 float distBetweenHandAndPlant = Vector3.Distance(healingHandPos.position, healableObject.transform.position);
 
                 foreach(ParticleSystem pS in healingPS) {
-                    pS.enableEmission = true;
+                    ParticleSystem.EmissionModule emis = pS.emission;
+                    emis.enabled = true;
 
                     UnityEngine.ParticleSystem.ShapeModule pSShape = pS.shape;
                     pSShape.radius = distBetweenHandAndPlant / 2;
@@ -157,7 +158,8 @@ public class Movement_1 : MonoBehaviour
                 anim.SetBool("isHealing", false);
             foreach (ParticleSystem pS in healingPS)
             {
-                pS.enableEmission = false;
+                ParticleSystem.EmissionModule emis = pS.emission;
+                emis.enabled = false;
             }
         }
         

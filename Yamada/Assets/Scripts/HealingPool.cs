@@ -7,10 +7,9 @@ public class HealingPool : MonoBehaviour
 {
 
     public float recoverAmount = 200;
+    public int numberOfKeys = 3;
     public bool canRecover;
     public GameObject recoverKeyImage;
-
-    float startPlayerRadLevel;
 
     Movement_1 playerGirl;
 
@@ -21,8 +20,7 @@ public class HealingPool : MonoBehaviour
     {
         recoverKeyImage.SetActive(false);
         playerGirl = FindObjectOfType<Movement_1>();
-
-        startPlayerRadLevel = playerGirl.radLevel;
+        
     }
 
     // Update is called once per frame
@@ -40,6 +38,15 @@ public class HealingPool : MonoBehaviour
         if (playerGirl.radLevel <= 0) {
             recoverKeyImage.SetActive(false);
         }
+
+
+    }
+
+
+
+    void KeyEnterGame(int keyNum) {
+
+
 
 
     }
