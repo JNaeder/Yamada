@@ -9,7 +9,12 @@ public class HealingPool : MonoBehaviour
     public float recoverAmount = 200;
     public int numberOfKeys = 3;
     public bool canRecover;
+    public bool keyPressGameOn;
     public GameObject recoverKeyImage;
+
+    public Sprite[] comboKeysUp, comboKeysPressed;
+    public SpriteRenderer[] comboKeysHolder;
+    KeyCode[] comboKeyCodes;
 
     Movement_1 playerGirl;
 
@@ -20,7 +25,12 @@ public class HealingPool : MonoBehaviour
     {
         recoverKeyImage.SetActive(false);
         playerGirl = FindObjectOfType<Movement_1>();
-        
+
+
+        foreach(SpriteRenderer t in comboKeysHolder) {
+            t.gameObject.SetActive(false);
+          }
+
     }
 
     // Update is called once per frame
@@ -29,7 +39,10 @@ public class HealingPool : MonoBehaviour
         if (canRecover) {
            
             if (Input.GetButtonDown("Recover")) {
-                playerGirl.Recover(recoverAmount);
+                //playerGirl.Recover(recoverAmount);
+                GenerateComboKeys();
+                keyPressGameOn = true;
+                canRecover = false;
             }  
 
         }
@@ -40,13 +53,31 @@ public class HealingPool : MonoBehaviour
         }
 
 
+
+        if (keyPressGameOn) {
+            int currentKeyComboNum = 0;
+         
+          
+            }
+
+
     }
 
 
 
-    void KeyEnterGame(int keyNum) {
+
+    void GenerateComboKeys() {
+        playerGirl.isMoveable = false;
 
 
+        recoverKeyImage.SetActive(false);
+        comboKeysHolder[0].sprite = comboKeysUp[Random.Range(0, comboKeysUp.Length)];
+        comboKeysHolder[1].sprite = comboKeysUp[Random.Range(0, comboKeysUp.Length)];
+        comboKeysHolder[2].sprite = comboKeysUp[Random.Range(0, comboKeysUp.Length)];
+        foreach(SpriteRenderer t in comboKeysHolder) {
+            t.gameObject.SetActive(true);
+         
+           }
 
 
     }
@@ -67,6 +98,7 @@ public class HealingPool : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             canRecover = false;
+            keyPressGameOn = false;
             recoverKeyImage.SetActive(false);
         }
     }
