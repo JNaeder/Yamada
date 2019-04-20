@@ -4801,6 +4801,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   animSpeed: 1
+  isHealable: 1
 --- !u!1 &284402267192640270
 GameObject:
   m_ObjectHideFlags: 0

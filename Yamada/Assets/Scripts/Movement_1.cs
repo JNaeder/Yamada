@@ -207,6 +207,16 @@ public class Movement_1 : MonoBehaviour
         radLevelScale.x = radLevelPerc;
         radLevelImg.transform.localScale = radLevelScale;
 
+        if (radLevel > (maxRadLevel / 2))
+        {
+            anim.SetBool("isMutated", true);
+
+        }
+        else {
+
+            anim.SetBool("isMutated", false);
+        }
+
 
 
     }
