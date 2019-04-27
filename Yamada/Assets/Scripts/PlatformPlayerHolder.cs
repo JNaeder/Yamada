@@ -7,41 +7,29 @@ public class PlatformPlayerHolder : MonoBehaviour
     
 
     Transform playerTrans;
-    MovingPlatform mP;
+    Vector3 startScale;
+    
 
-    bool isOnPlatform;
-
-    Vector2 offset;
+   
 
 
     // Start is called before the first frame update
     void Start()
     {
-        mP = GetComponentInParent<MovingPlatform>();
+        startScale = transform.localScale;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (isOnPlatform) {
-            Vector2 newPos = new Vector2(0, 0);
-
-            //playerTrans.position = newPos;
-                }
-
-
-
-    }
+    
 
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Player")
         {
-           playerTrans = collision.gameObject.transform;
-            playerTrans.position += transform.position;
-            Debug.Log(offset);
-            isOnPlatform = true;
+            playerTrans = collision.transform;
+            playerTrans.parent = transform;
+            Vector3 newScale = new Vector3(1 / startScale.x, 1 / startScale.y, 1);
+            playerTrans.localScale = newScale;
 
         }
     }
@@ -50,7 +38,7 @@ public class PlatformPlayerHolder : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            isOnPlatform = false;
+            playerTrans.parent = null;
 
         }
     }

@@ -103,6 +103,8 @@ public class MovingPlatform : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawLine(platform.position, endPos.position);
+
+        Gizmos.DrawCube(endPos.position, new Vector3(platform.localScale.x, platform.localScale.y, platform.localScale.z));
     }
 
     

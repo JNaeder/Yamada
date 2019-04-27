@@ -4720,6 +4720,7 @@ GameObject:
   - component: {fileID: 595338123}
   - component: {fileID: 595338122}
   - component: {fileID: 5136074359855894170}
+  - component: {fileID: 1273471060855260428}
   m_Layer: 9
   m_Name: Plant Guy
   m_TagString: Healable
@@ -4800,9 +4801,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2ac550c07c95ee4c9629b13b8bb81b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
   animSpeed: 1
-  isHealable: 1
 --- !u!114 &5136074359855894170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4815,6 +4814,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd86389010f4b4f4996bc19b5c3e581a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 100
+  isHealable: 1
+--- !u!50 &1273471060855260428
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 284402265487484458}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &284402267192640270
 GameObject:
   m_ObjectHideFlags: 0

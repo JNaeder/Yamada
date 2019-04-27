@@ -33,5 +33,15 @@ public class PlantGuy : MonoBehaviour
 
     }
 
-   
+
+    private void OnDrawGizmos()
+    {
+        Collider2D coll = GetComponent<Collider2D>();
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireCube(transform.position, coll.bounds.size);
+
+
+    }
+
+
 }
