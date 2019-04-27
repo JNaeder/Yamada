@@ -23,7 +23,7 @@ public class Movement_1 : MonoBehaviour
     public float radLevel = 0;
     public float maxRadLevel = 500;
     public Image radLevelImg;
-    public PlantGuy healableObject;
+    public HealableObject healableObject;
     public ParticleSystem[] healingPS;
     public float recoveringSpeed = 2;
 
@@ -246,7 +246,7 @@ public class Movement_1 : MonoBehaviour
         if (collision.gameObject.tag == "Healable")
         {
             inHealableArea = true;
-            healableObject = collision.gameObject.GetComponent<PlantGuy>();
+            healableObject = collision.gameObject.GetComponent<HealableObject>();
         }
     }
 

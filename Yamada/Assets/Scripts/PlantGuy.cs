@@ -2,29 +2,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(HealableObject))]
 public class PlantGuy : MonoBehaviour
 {
-    public float health = 100;
+    
     public float animSpeed = 1;
-    public bool isHealable = true;
-
-
+    
     Animator anim;
-    // Start is called before the first frame update
+    HealableObject hO;
+    
+
     void Start()
     {
         anim = GetComponent<Animator>();
+        hO = GetComponent<HealableObject>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        anim.SetFloat("health", health);
+
+
+        anim.SetFloat("health", hO.health);
         anim.speed = animSpeed;
 
 
-        if (health <= 0) {
-            isHealable = false;
+        if (hO.health <= 0) {
+            hO.isHealable = false;
         }
 
     }
