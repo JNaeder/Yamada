@@ -8,7 +8,8 @@ public class Movement_1 : MonoBehaviour
     Rigidbody2D rB;
     Animator anim;
     SpriteRenderer sP;
-    BoxCollider2D coll;
+    BoxCollider2D boxColl;
+    PolygonCollider2D polyColl;
 
 
     public float speed = 2;
@@ -22,9 +23,7 @@ public class Movement_1 : MonoBehaviour
     public float effectRot;
     public float recoveringSpeed = 2;
     public float specialRadSpeed = 5f;
-
-    int startExtraJumpNum;
-    public int extraJumpNum = 1;
+    
 
     public bool isGrounded = false;
     public bool isWalking = false;
@@ -32,6 +31,7 @@ public class Movement_1 : MonoBehaviour
     public bool inHealableArea = false;
     public bool isHealing = false;
     public bool isSpecialMove = false;
+    public bool isInWindZone = false;
 
 
 
@@ -54,11 +54,13 @@ public class Movement_1 : MonoBehaviour
         rB = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         sP = GetComponent<SpriteRenderer>();
-        coll = GetComponent<BoxCollider2D>();
+        boxColl = GetComponent<BoxCollider2D>();
+        polyColl = GetComponent<PolygonCollider2D>();
 
-        startCollidorSize = coll.bounds.size;
 
-        startExtraJumpNum = extraJumpNum;
+        boxColl.enabled = false;
+        polyColl.enabled = true;
+        
         foreach (ParticleSystem pS in healingPS)
         {
             //pS.enableEmission = false;
@@ -86,10 +88,12 @@ public class Movement_1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        Jumping();
-        CheckGround();
-        Healing();
+        if (!isSpecialMove)
+        {
+            Jumping();
+            CheckGround();
+            Healing();
+        }
         SetRadLevel();
         SpecialMove();
     }
@@ -143,46 +147,13 @@ public class Movement_1 : MonoBehaviour
 
 
     }
-
+    
 
     void SpecialMovement() {
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
-        float maxSpeed = maxSpecialSpeed;
 
-
-
-
-        rB.AddForce(new Vector2(h, v) * specialSpeed);
-        if (Mathf.Abs(rB.velocity.x) > maxSpeed)
-        {
-            Vector2 rBVel = rB.velocity;
-            if (rB.velocity.x > 0)
-            {
-                rBVel.x = 5;
-                rB.velocity = rBVel;
-            }
-            else if (rB.velocity.x < 0){
-                rBVel.x = -5;
-                rB.velocity = rBVel;
-            }
-        }
-        else if (Mathf.Abs(rB.velocity.y) > maxSpeed) {
-            Vector2 rBVel = rB.velocity;
-            if (rB.velocity.y > 0)
-            {
-                rBVel.y = 5;
-                rB.velocity = rBVel;
-            }
-            else if (rB.velocity.y < 0)
-            {
-                rBVel.y = -5;
-                rB.velocity = rBVel;
-            }
-
-        }
-
-
+        rB.velocity = new Vector2(h, v) * specialSpeed;
 
     }
 
@@ -250,23 +221,23 @@ public class Movement_1 : MonoBehaviour
 
     void Jumping()
     {
-        if (Input.GetButtonDown("Jump") && extraJumpNum != 0)
+        if (Input.GetButtonDown("Jump") && isGrounded)
         {
-            extraJumpNum--;
             rB.AddForce(new Vector2(0, 100) * jumpForce);
+            Debug.Log("Jump!");
         }
 
-        if (!isSpecialMove)
+        if (rB.velocity.y < 0)
         {
-            if (rB.velocity.y < 0)
-            {
-                //make player fall faster
-                rB.velocity += Vector2.up * Physics2D.gravity.y * Time.deltaTime * fallMult;
-            }
-            else if (rB.velocity.y > 0 && !Input.GetButton("Jump"))
-            {
-                rB.velocity += Vector2.up * Physics2D.gravity.y * Time.deltaTime * jumpDamp;
-            }
+            //make player fall faster
+            rB.velocity += Vector2.up * Physics2D.gravity.y * Time.deltaTime * fallMult;
+        }
+        else if (rB.velocity.y > 0 && !Input.GetButton("Jump"))
+        {
+            rB.velocity += Vector2.up * Physics2D.gravity.y * Time.deltaTime * jumpDamp;
+        }
+        else if (isInWindZone) {
+            rB.velocity += Vector2.up * Physics2D.gravity.y * Time.deltaTime * jumpDamp;
         }
     }
 
@@ -275,11 +246,7 @@ public class Movement_1 : MonoBehaviour
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.5f, NonPlayerLayer);
         anim.SetBool("isGrounded", isGrounded);
-        //Debug.Log(isGrounded);
-        if (isGrounded)
-        {
-            extraJumpNum = startExtraJumpNum;
-        }
+        
     }
 
 
@@ -348,27 +315,38 @@ public class Movement_1 : MonoBehaviour
         if (Input.GetButton("Special"))
         {
             radLevel += Time.deltaTime * specialRadSpeed;
+            Vector3 iconRot = radLevelIcon.transform.localRotation.eulerAngles;
+            iconRot.z += Time.deltaTime * 50f;
+            radLevelIcon.transform.localRotation = Quaternion.Euler(iconRot);
             rB.gravityScale = 0;
-            coll.size = new Vector2(coll.size.x, 2);
+            boxColl.enabled = true;
+            polyColl.enabled = false;
         }
 
 
         if (Input.GetButtonUp("Special")) {
             isSpecialMove = false;
             rB.gravityScale = 1;
-            //rB.velocity = Vector3.zero;
-            coll.size = startCollidorSize;
+            rB.velocity = Vector3.zero;
+            boxColl.enabled = false;
+            polyColl.enabled = true;
             // rB.simulated = true;
             sP.enabled = true;
             foreach (ParticleSystem ps in specialPS)
             {
                 ParticleSystem.EmissionModule specialEmis = ps.emission;
-                ps.simulationSpace = ParticleSystemSimulationSpace.World;
+                ParticleSystem.MainModule pSMain = ps.main;
+                pSMain.simulationSpace = ParticleSystemSimulationSpace.World;
                 specialEmis.enabled = false;
             }
+
+            
+
         }
         
     }
+
+    
 
 
 
@@ -378,6 +356,11 @@ public class Movement_1 : MonoBehaviour
         {
             inHealableArea = true;
             healableObject = collision.gameObject.GetComponent<HealableObject>();
+        }
+
+        if (collision.gameObject.tag == "Wind Zone") {
+            isInWindZone = true;
+
         }
     }
 
@@ -389,5 +372,18 @@ public class Movement_1 : MonoBehaviour
             inHealableArea = false;
             healableObject = null;
         }
+
+        if (collision.gameObject.tag == "Wind Zone")
+        {
+            isInWindZone = false;
+
+        }
+    }
+
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(groundCheck.position, 0.5f);
     }
 }

@@ -2,29 +2,66 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(HealableObject))]
 public class ShootingGuy : MonoBehaviour
 {
     Transform playerTrans;
     Animator anim;
+    HealableObject hO;
+    SpriteRenderer[] sP;
 
     public GameObject bulletPrefab;
     public Transform aimer;
     public Transform muzzle;
+    public ParticleSystem pS;
     public float repeatTime = 10f;
+    public Color[] colorStages;
+
+
+    float startTime = 0;
+    float startHealth;
+    bool hasBeenHeald = false;
  
     // Start is called before the first frame update
     void Start()
     {
         playerTrans = FindObjectOfType<Movement_1>().transform;
         anim = GetComponent<Animator>();
-        InvokeRepeating("BeginShooting", 0.01f, repeatTime);
-        
+        hO = GetComponent<HealableObject>();
+        sP = GetComponentsInChildren<SpriteRenderer>();
+        startHealth = hO.health;
+
+        BeginShooting();
+        SetColor();
     }
 
     // Update is called once per frame
     void Update()
     {
-        LookAtPlayer();
+
+
+        if (hO.isHealable && !hasBeenHeald)
+        {
+            LookAtPlayer();
+            LoopShooting();
+        }
+        else if (!hO.isHealable && !hasBeenHeald) {
+
+            BecomeHealed();
+
+        }
+        SetColor();
+    }
+
+
+    void LoopShooting() {
+        if (Time.time > startTime + repeatTime) {
+            Debug.Log("Shoot!");
+            BeginShooting();
+            startTime = Time.time;
+        }
+
+
     }
 
 
@@ -52,6 +89,49 @@ public class ShootingGuy : MonoBehaviour
         bulletScript.SetTargetPosition(playerTrans.position);
 
     }
+
+    public void BecomeHealed() {
+        hasBeenHeald = true;
+        Debug.Log("Become Healed!");
+
+
+
+    }
+
+    void SetColor()
+    {
+        if (hO.health > (startHealth * 0.5f))
+        {
+            ChangeColor(colorStages[0]);
+
+        }
+        else if (hO.health < (startHealth * 0.5f) && hO.health > 0)
+        {
+            ChangeColor(colorStages[1]);
+
+        }
+        else if (hO.health <= 0)
+        {
+
+            ChangeColor(colorStages[2]);
+            pS.gameObject.SetActive(false);
+        }
+
+
+    }
+
+
+    void ChangeColor(Color newColor)
+    {
+        foreach (SpriteRenderer s in sP)
+        {
+            s.color = newColor;
+
+        }
+
+
+    }
+
 
     private void OnDrawGizmos()
     {

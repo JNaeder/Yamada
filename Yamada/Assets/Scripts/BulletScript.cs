@@ -47,14 +47,12 @@ public class BulletScript : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            Debug.Log("Hit Player");
             Movement_1 player = collision.gameObject.GetComponent<Movement_1>();
             player.radLevel += 50;
             DestroyBullet();
 
         }
         else {
-            Debug.Log("Hit something else");
             DestroyBullet();
         }
     }

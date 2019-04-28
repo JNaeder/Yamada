@@ -46,7 +46,7 @@ public class PlantGuy : MonoBehaviour
         newColor.a = 0.25f;
         Gizmos.color = newColor;
         Gizmos.DrawCube(transform.position + new Vector3(coll.offset.x, coll.offset.y, 0), new Vector2(coll.bounds.size.x + 1, coll.bounds.size.y));
-
+        //
 
     }
 

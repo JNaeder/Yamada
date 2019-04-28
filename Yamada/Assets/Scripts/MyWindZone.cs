@@ -5,7 +5,7 @@ using UnityEngine;
 public class MyWindZone : MonoBehaviour
 {
 
-    Collider2D windZoneBox;
+    public Collider2D windZoneBox;
     ParticleSystem[] pS;
 
     float windZoneHeight, windZoneWidth;
@@ -23,19 +23,7 @@ public class MyWindZone : MonoBehaviour
         pS = GetComponentsInChildren<ParticleSystem>();
 
 
-        for(int i = 0; i < pS.Length; i++) {
-            ParticleSystem.MainModule emis = pS[i].main;
-            emis.startLifetimeMultiplier = CalculatePSLifeTime(windZoneHeight);
-
-            ParticleSystem.ShapeModule pSShape = pS[i].shape;
-            Vector3 pSScale = pSShape.scale;
-            pSScale.x = windZoneWidth * 0.7f;
-            pSShape.scale = pSScale;
-
-            pSShape.position = windZonePos;
-
-         
-           }
+       
 
 
     }
@@ -47,6 +35,38 @@ public class MyWindZone : MonoBehaviour
 
         return pSLifeTime;
        }
+
+
+    void AutoSetPSSize() {
+        for (int i = 0; i < pS.Length; i++)
+        {
+            ParticleSystem.MainModule emis = pS[i].main;
+            emis.startLifetimeMultiplier = CalculatePSLifeTime(windZoneHeight);
+
+            ParticleSystem.ShapeModule pSShape = pS[i].shape;
+            Vector3 pSScale = pSShape.scale;
+            pSScale.x = windZoneWidth * 0.7f;
+            pSShape.scale = pSScale;
+
+            pSShape.position = windZonePos;
+
+
+        }
+
+
+    }
+
+    private void OnDrawGizmos()
+    {
+        Color newColor = Color.blue;
+        newColor.a = 0.05f;
+        Gizmos.color = newColor;
+
+        Vector2 newPos = new Vector2((windZoneBox.transform.position.x + windZoneBox.offset.x), (windZoneBox.transform.position.y + windZoneBox.offset.y));
+        Gizmos.DrawCube(newPos, windZoneBox.bounds.size);
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireCube(newPos, windZoneBox.bounds.size);
+    }
 
 
 }
