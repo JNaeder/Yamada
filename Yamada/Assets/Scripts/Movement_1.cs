@@ -33,9 +33,9 @@ public class Movement_1 : MonoBehaviour
     public bool isHealing = false;
     public bool isSpecialMove = false;
 
-    
 
-    public Image radLevelImg;
+
+    public Image radLevelImg, radLevelIcon;
     public HealableObject healableObject;
     public ParticleSystem[] healingPS;
     public ParticleSystem[] specialPS;
@@ -226,6 +226,10 @@ public class Movement_1 : MonoBehaviour
                 {
                     healableObject.health -= Time.deltaTime * 20;
                     radLevel += Time.deltaTime * 20;
+                    Vector3 iconRot = radLevelIcon.transform.localRotation.eulerAngles;
+                    iconRot.z += Time.deltaTime * 50f;
+                    radLevelIcon.transform.localRotation = Quaternion.Euler(iconRot);
+
                 }
             }
             }

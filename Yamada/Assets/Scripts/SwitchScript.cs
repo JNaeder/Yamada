@@ -125,4 +125,17 @@ public class SwitchScript : MonoBehaviour
             }
         }
     }
+
+    private void OnDrawGizmos()
+    {
+        Collider2D coll = GetComponent<Collider2D>();
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireCube(transform.position + new Vector3(coll.offset.x, coll.offset.y, 0), new Vector2(coll.bounds.size.x + 1, coll.bounds.size.y));
+        Color newColor = Color.yellow;
+        newColor.a = 0.25f;
+        Gizmos.color = newColor;
+        Gizmos.DrawCube(transform.position + new Vector3(coll.offset.x, coll.offset.y, 0), new Vector2(coll.bounds.size.x + 1, coll.bounds.size.y));
+
+
+    }
 }
