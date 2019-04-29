@@ -34,7 +34,7 @@ public class PostProcController : MonoBehaviour
     void Update()
     {
         float radPerc = player.radLevel / player.maxRadLevel;
-        vignetteLayer.intensity.value = Remap(radPerc, 0,0.18f,1,0.48f);
+        vignetteLayer.intensity.value = Remap(radPerc, 0,0.18f,1,0.38f);
         colorGradeLayer.saturation.value = Remap(radPerc, 0f, -12f, 1f, -60f);
         grainLayer.intensity.value = Remap(radPerc, 0f, 0.216f, 1f, 1f);
         // Debug.Log("Orginal: " + radPerc + " New Value: " + Remap(radPerc, 0, 0.18f, 1, .48f));
@@ -42,7 +42,7 @@ public class PostProcController : MonoBehaviour
         if (player.isSpecialMove)
         {
             chromeLayer.enabled.value = true;
-           // colorGradeLayer.saturation.value = -100f;
+            //colorGradeLayer.saturation.value = -100f;
 
         }
         else {

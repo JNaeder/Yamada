@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Healable
   - Wind Zone
+  - Ground
   layers:
   - Default
   - TransparentFX

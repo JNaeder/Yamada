@@ -28571,7 +28571,7 @@ MonoBehaviour:
   speed: 12
   specialSpeed: 20
   maxSpecialSpeed: 20
-  jumpForce: 8
+  jumpForce: 9
   fallMult: 3
   jumpDamp: 2
   radLevel: 0

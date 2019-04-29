@@ -224,7 +224,7 @@ public class Movement_1 : MonoBehaviour
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             rB.AddForce(new Vector2(0, 100) * jumpForce);
-            Debug.Log("Jump!");
+            //Debug.Log("Jump!");
         }
 
         if (rB.velocity.y < 0)
