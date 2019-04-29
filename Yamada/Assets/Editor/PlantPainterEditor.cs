@@ -31,8 +31,17 @@ public class PlantPainterEditor : Editor
             if (e.isMouse) {
                 if (e.type == EventType.MouseDown) {
                     if (e.button == 0) {
-                        
-                                myScript.SpawnItem(mousePos);
+                        RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.up);
+                        if (hit.collider != null)
+                        {
+                            PolygonCollider2D polyColl = hit.collider.gameObject.GetComponent<PolygonCollider2D>();
+
+                            foreach (Vector2 point in polyColl.GetPath(0)) {
+                                Debug.Log(point);
+
+                            }
+
+                        }
                             }
                     }
 

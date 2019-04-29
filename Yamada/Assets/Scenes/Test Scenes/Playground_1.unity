@@ -5442,7 +5442,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 911702859}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -77.841644, y: -4.0004454, z: 0}
+  m_LocalPosition: {x: -77.841644, y: -3.48, z: 0}
   m_LocalScale: {x: 1.8758312, y: 1.8758312, z: 1}
   m_Children: []
   m_Father: {fileID: 2137525579}
@@ -6095,7 +6095,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1272992011}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -71.57488, y: -4.0004454, z: 0}
+  m_LocalPosition: {x: -71.57488, y: -3.27, z: 0}
   m_LocalScale: {x: 1.9169735, y: 1.9169735, z: 1}
   m_Children: []
   m_Father: {fileID: 2137525579}
@@ -8296,6 +8296,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 1863401313889151076, guid: 4d7d868e65769dd4792162492ca4e8c3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1863401313889151072, guid: 4d7d868e65769dd4792162492ca4e8c3,
         type: 3}

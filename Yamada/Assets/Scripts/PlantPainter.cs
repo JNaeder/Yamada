@@ -24,4 +24,10 @@ public class PlantPainter : MonoBehaviour
 
 
     }
+
+
+    public void TestMethod() {
+        Debug.Log("Testing!");
+
+    }
 }
