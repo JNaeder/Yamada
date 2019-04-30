@@ -93,7 +93,8 @@ public class PlantPainterEditor : Editor
         //Find LeftX
         foreach (Vector2 p in polyColl.GetPath(0)) {
             Vector2 newP = new Vector2(((p.x * polyColl.transform.localScale.x) + polyColl.transform.position.x), ((p.y * polyColl.transform.localScale.y) + polyColl.transform.position.y));
-
+            if (newP.y > midY)
+            {
                 if (newP.x < hitPoint.x)
                 {
                     if (newP.x > leftPoint.x)
@@ -101,6 +102,7 @@ public class PlantPainterEditor : Editor
                         leftPoint = newP;
                     }
                 }
+            }
             
         }
 
@@ -108,19 +110,21 @@ public class PlantPainterEditor : Editor
         foreach (Vector2 p in polyColl.GetPath(0))
         {
             Vector2 newP = new Vector2(((p.x * polyColl.transform.localScale.x) + polyColl.transform.position.x), ((p.y * polyColl.transform.localScale.y) + polyColl.transform.position.y));
-
+            if (newP.y > midY)
+            {
                 if (newP.x > hitPoint.x)
                 {
                     if (newP.x < rightPoint.x)
                     {
                         rightPoint = newP;
                     }
+                }
             }
             
         }
         float newY = Remap(hitPoint.x, leftPoint.x, leftPoint.y, rightPoint.x, rightPoint.y);
 
-        Debug.Log("Hit poit is : " + hitPoint + " and Right Point is : " + rightPoint + " and left Point is : " + leftPoint);
+        //Debug.Log("Hit poit is : " + hitPoint + " and Right Point is : " + rightPoint + " and left Point is : " + leftPoint);
 
         return new Vector2(hitPoint.x, newY);
 

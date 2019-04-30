@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/RadLevelTest.unity
-    guid: 239320042935dd44d966cc696e657d06
+    path: Assets/Scenes/Test Scenes/Playground_1.unity
+    guid: e14fdd31c188f5b45a365c03d61799cb
   m_configObjects: {}

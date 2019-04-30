@@ -21,6 +21,7 @@ public class ShootingGuy : MonoBehaviour
     float startTime = 0;
     float startHealth;
     bool hasBeenHeald = false;
+    bool playerIsInTrigger = false;
  
     // Start is called before the first frame update
     void Start()
@@ -31,7 +32,7 @@ public class ShootingGuy : MonoBehaviour
         sP = GetComponentsInChildren<SpriteRenderer>();
         startHealth = hO.health;
 
-        BeginShooting();
+
         SetColor();
     }
 
@@ -40,7 +41,7 @@ public class ShootingGuy : MonoBehaviour
     {
 
 
-        if (hO.isHealable && !hasBeenHeald)
+        if (hO.isHealable && !hasBeenHeald && playerIsInTrigger)
         {
             LookAtPlayer();
             LoopShooting();
@@ -92,11 +93,20 @@ public class ShootingGuy : MonoBehaviour
 
     public void BecomeHealed() {
         hasBeenHeald = true;
-        Debug.Log("Become Healed!");
 
 
 
     }
+
+
+    public void TriggerShooting() {
+        playerIsInTrigger = true;
+
+    }
+    public void UnTriggerShooting() {
+        playerIsInTrigger = false;
+     
+       }
 
     void SetColor()
     {

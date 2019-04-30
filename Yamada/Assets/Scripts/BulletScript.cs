@@ -7,6 +7,7 @@ public class BulletScript : MonoBehaviour
     Vector3 targetPos;
     Vector3 dir;
     public float bulletSpeed = 3f;
+    public float bulletDamage = 50f;
     public GameObject pSPrefab;
 
     // Start is called before the first frame update
@@ -48,7 +49,7 @@ public class BulletScript : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             Movement_1 player = collision.gameObject.GetComponent<Movement_1>();
-            player.radLevel += 50;
+            player.radLevel += bulletDamage;
             DestroyBullet();
 
         }

@@ -317,9 +317,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcb4b32f724f3144a945e3ddaceb8f35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recoverAmount: 200
+  recoverAmount: 500
   numberOfKeys: 3
   timeToHitNextKeyLimit: 5
+  currentTime: 0
   canRecover: 0
   keyPressGameOn: 0
   recoverKeyImage: {fileID: 309176642691088337}

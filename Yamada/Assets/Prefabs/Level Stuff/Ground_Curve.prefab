@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6058036034553231942}
   - component: {fileID: 827931256408037256}
   - component: {fileID: 1426635779724552219}
+  - component: {fileID: 6093488264381275085}
   m_Layer: 0
   m_Name: Ground_Curve
   m_TagString: Ground
@@ -43,7 +44,7 @@ SpriteShapeRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -75,8 +76,8 @@ SpriteShapeRenderer:
   m_ShapeTexture: {fileID: 2800000, guid: 85637ee8ddf29fa4b8618e4088fafc23, type: 3}
   m_Sprites: []
   m_LocalAABB:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 2, y: 2, z: 0}
+    m_Center: {x: 7.9215612, y: 2.3533432, z: 0}
+    m_Extent: {x: 13.019713, y: 6.39804, z: 0}
 --- !u!114 &827931256408037256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,3 +169,15 @@ PolygonCollider2D:
       - {x: 2, y: -2}
       - {x: 2, y: -2}
       - {x: -2, y: -2}
+--- !u!114 &6093488264381275085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8554502689024320211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c460ec091f1e45b3a1cd857bcfa9f6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
